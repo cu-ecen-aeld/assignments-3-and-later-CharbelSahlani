@@ -55,6 +55,7 @@ if [ ! -e ${OUTDIR}/linux-stable/arch/${ARCH}/boot/Image ]; then
     # make ARCH=arm64 \
     # CROSS_COMPILE=aarch64-none-linux-gnu-dtbs
 fi
+cp "${OUTDIR}/linux-stable/arch/${ARCH}/boot/Image" "${OUTDIR}/Image"
 
 echo "Adding the Image in outdir"
 
@@ -160,6 +161,5 @@ chmod +x "${ROOTFS}/home/finder-test.sh"
 chmod +x "${ROOTFS}/home/writer"
 
 # TODO: Create initramfs.cpio.gz
-cd ${OUTDIR}
-find . | cpio -H newc -ov --owner root:root > ${OUTDIR}/initramfs.cpio
-gzip -f initramfs.cpio
+cd "${ROOTFS}"
+find . | cpio -H newc -ov --owner root:root >  gzip -f > "${OUTDIR}/initramfs.cpio.gz"
