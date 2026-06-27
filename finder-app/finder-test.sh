@@ -8,7 +8,19 @@ set -u
 NUMFILES=10
 WRITESTR=AELD_IS_FUN
 WRITEDIR=/tmp/aeld-data
-username=$(cat conf/username.txt)
+
+CONFIG_DIR=/etc/finder-app/conf
+
+if [ -f "$CONFIG_DIR/username.txt" ]; then
+    username=$(cat "$CONFIG_DIR/username.txt")
+elif [ -f "./conf/username.txt" ]; then
+    username=$(cat "./conf/username.txt")
+elif [ -f "../conf/username.txt" ]; then
+    username=$(cat "../conf/username.txt")
+else
+    echo "Error: username.txt not found"
+    exit 1
+fi
 
 if [ $# -lt 3 ]
 then
@@ -58,6 +70,7 @@ do
 done
 
 OUTPUTSTRING=$(./finder.sh "$WRITEDIR" "$WRITESTR")
+echo "$OUTPUTSTRING" > /tmp/assignment4-result.txt
 
 # remove temporary directories
 rm -rf /tmp/aeld-data
