@@ -7,7 +7,7 @@ OBJ = $(SRC:.c=.o)
 # If CROSS_COMPILE is defined (e.g., CROSS_COMPILE=aarch64-none-linux-gnu-),
 # CC becomes aarch64-none-linux-gnu-gcc. Otherwise, it defaults to native gcc.
 CROSS_COMPILE ?=
-CC := $(CROSS_COMPILE)gcc
+CC ?= $(CROSS_COMPILE)gcc
 CFLAGS = -Wall -Werror -g
 
 # Default target
